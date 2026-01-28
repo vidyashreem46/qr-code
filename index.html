@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Website QR Code</title>
+    <title>My QR Code</title>
+    <!-- QRCode library -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <style>
-        /* Center everything vertically and horizontally */
+        /* General body styling */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f2f2f2;
@@ -13,70 +14,94 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            padding: 0;
+            padding: 20px;
         }
 
+        /* Heading */
         h2 {
             color: #333;
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 26px;
             text-align: center;
+            margin-bottom: 30px;
         }
 
+        /* QR code container */
         #qrcode {
             background: #fff;
-            padding: 20px;
+            padding: 25px;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            display: inline-block;
             transition: transform 0.2s ease;
         }
 
+        /* Hover effect on QR card */
         #qrcode:hover {
             transform: scale(1.05);
         }
 
+        /* QR code image */
         #qrcode img {
             width: 250px;
             height: 250px;
             display: block;
         }
 
+        /* Footer text */
         footer {
             margin-top: 30px;
             font-size: 14px;
             color: #666;
+            text-align: center;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 500px) {
+            #qrcode img {
+                width: 200px;
+                height: 200px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <h2>Scan this QR code to visit my website</h2>
+
+    <!-- QR code container -->
     <div id="qrcode"></div>
+
     <footer>Or click the QR code to open the website</footer>
 
     <script>
         const websiteURL = 'https://vidyashreem46.github.io/profile-website/';
         const qrcodeDiv = document.getElementById('qrcode');
 
-        // Generate QR code as an image
-        QRCode.toDataURL(websiteURL)
-        .then(url => {
-            const img = document.createElement('img');
-            img.src = url;
-            img.alt = "QR code to my website";
+        // Generate QR code after page loads
+        window.onload = () => {
+            QRCode.toDataURL(websiteURL)
+            .then(url => {
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = "QR code to my website";
 
-            // Make QR code clickable
-            img.style.cursor = "pointer";
-            img.addEventListener('click', () => {
-                window.open(websiteURL, "_blank");
+                // Make QR code clickable
+                img.style.cursor = "pointer";
+                img.addEventListener('click', () => {
+                    window.open(websiteURL, "_blank");
+                });
+
+                qrcodeDiv.appendChild(img);
+            })
+            .catch(err => {
+                console.error('Error generating QR code:', err);
             });
-
-            qrcodeDiv.appendChild(img);
-        })
-        .catch(err => {
-            console.error('Error generating QR code:', err);
-        });
+        }
     </script>
 </body>
 </html>
