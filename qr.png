@@ -1,0 +1,35 @@
+import qrcode
+from PIL import Image, ImageDraw, ImageFont
+
+url = "https://vidyashreem46.github.io/profile-website/"
+
+qr = qrcode.QRCode(
+    version=3,
+    error_correction=qrcode.constants.ERROR_CORRECT_H,
+    box_size=10,
+    border=4,
+)
+qr.add_data(url)
+qr.make(fit=True)
+
+img = qr.make_image(fill_color="black", back_color="white").convert("RGB")
+
+draw = ImageDraw.Draw(img)
+text = "Vidyashree M"
+
+font = ImageFont.load_default()
+w, h = draw.textsize(text, font=font)
+
+x = (img.size[0] - w) // 2
+y = (img.size[1] - h) // 2
+
+draw.rectangle(
+    [(x-10, y-10), (x+w+10, y+h+10)],
+    fill="white"
+)
+
+draw.text((x, y), text, fill="black", font=font)
+
+img.save("vidyashree_qr.png")
+
+print("Static QR created!")
