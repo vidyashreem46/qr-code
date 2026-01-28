@@ -1,25 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Vidyashree QR</title>
+    <meta charset="UTF-8">
+    <title>My Website QR Code</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h2 {
+            color: #333;
+        }
+        #qrcode img {
+            width: 250px;
+            height: 250px;
+            margin-top: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+        }
+    </style>
 </head>
-<body style="
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  margin:0;
-  background:#f3f4f6;
-  font-family:Arial;
-">
-  <div style="text-align:center;background:white;padding:30px;border-radius:12px;">
-    <h2>Scan to Visit My Profile</h2>
+<body>
+    <h2>Scan this QR code to visit my website</h2>
+    <div id="qrcode"></div>
 
-    <!-- IMPORTANT LINE -->
-    <img src="vidyashree_profile_qr.png" alt="QR Code" width="220">
+    <script>
+        const websiteURL = 'https://vidyashreem46.github.io/profile-website/';
+        const qrcodeDiv = document.getElementById('qrcode');
 
-    <p>Vidyashree M</p>
-  </div>
+        // Generate QR code as an image
+        QRCode.toDataURL(websiteURL)
+        .then(url => {
+            const img = document.createElement('img');
+            img.src = url;
+            img.alt = "QR code to my website";
+            qrcodeDiv.appendChild(img);
+        })
+        .catch(err => {
+            console.error('Error generating QR code:', err);
+        });
+    </script>
 </body>
 </html>
