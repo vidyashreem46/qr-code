@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Website QR Code</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h2 {
+            color: #333;
+        }
+        #qrcode img {
+            width: 250px;
+            height: 250px;
+            margin-top: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Scan this QR code to visit my website</h2>
+    <div id="qrcode"></div>
+
+    <script>
+        const websiteURL = 'https://vidyashreem46.github.io/profile-website/';
+        const qrcodeDiv = document.getElementById('qrcode');
+
+        // Generate QR code as an image
+        QRCode.toDataURL(websiteURL)
+        .then(url => {
+            const img = document.createElement('img');
+            img.src = url;
+            img.alt = "QR code to my website";
+            qrcodeDiv.appendChild(img);
+        })
+        .catch(err => {
+            console.error('Error generating QR code:', err);
+        });
+    </script>
+</body>
+</html>
+
